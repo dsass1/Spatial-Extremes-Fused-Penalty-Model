@@ -12,9 +12,6 @@ for(f in 2:length(files)) {
   gev_data = rbind(gev_data, read.csv(paste0(dir, files[f])))
 }
 
-#bayes using only ridge sites
-gev_bayes_rs <- read.csv("~/Danielle/STAT - Research/Extremes Project/Final Paper/GEV_Final_Paper_Data/GEV_Bayes_RidgeSites.csv")
-
 dir = "~/Danielle/STAT - Research/Extremes Project/Final Paper/Schlather/Results/"
 files = list.files(dir)
 gev_max = read.csv(paste0(dir, files[1]))
