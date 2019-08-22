@@ -22,8 +22,8 @@ args = commandArgs(TRUE)
 sim <- as.integer(args[1])
 seed <- as.integer(args[2])
 
-sim <- 10
-seed <- 4591
+sim <- 1
+seed <- 1234
 
 ss <- 1
 n.obs <- 200 #m
