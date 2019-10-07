@@ -29,6 +29,7 @@ ridge.sim.gpd <- function(data, locations, MLE.gpd_Scale, MLE.gpd_Shape, n.site,
   rl_30_truetmp <- rl_30_true
   rl_40_truetmp <- rl_40_true
   rl_50_truetmp <- rl_50_true
+  rl_100_truetmp <- rl_100_true
   #set tmp MLE for mse comparison
   MLE.scale.tmp <- MLE.gpd_Scale
   MLE.shape.tmp <- MLE.gpd_Shape
@@ -37,6 +38,7 @@ ridge.sim.gpd <- function(data, locations, MLE.gpd_Scale, MLE.gpd_Shape, n.site,
   MLE.rl30.tmp <- rl_30_GPDSpatial
   MLE.rl40.tmp <- rl_40_GPDSpatial
   MLE.rl50.tmp <- rl_50_GPDSpatial
+  MLE.rl100.tmp <- rl_100_GPDSpatial
   
   ########################################################################################
   #ESTIMATE SCALE
@@ -156,6 +158,7 @@ ridge.sim.gpd <- function(data, locations, MLE.gpd_Scale, MLE.gpd_Shape, n.site,
     rl_30_truetmp <- rl_30_truetmp[newsite]
     rl_40_truetmp <- rl_40_truetmp[newsite]
     rl_50_truetmp <- rl_50_truetmp[newsite]
+    rl_100_truetmp <- rl_100_truetmp[newsite]
     MLE.scale.tmp <-  MLE.scale.tmp[newsite]
     MLE.shape.tmp <- MLE.shape.tmp[newsite]
     MLE.rl10.tmp <- MLE.rl10.tmp[newsite]
@@ -163,6 +166,7 @@ ridge.sim.gpd <- function(data, locations, MLE.gpd_Scale, MLE.gpd_Shape, n.site,
     MLE.rl30.tmp <- MLE.rl30.tmp[newsite]
     MLE.rl40.tmp <- MLE.rl40.tmp[newsite]
     MLE.rl50.tmp <- MLE.rl50.tmp[newsite]
+    MLE.rl100.tmp <- MLE.rl100.tmp[newsite]
     
     #results
     #mse.scale.TayIter[k] <- mse(param.scale.true, MLE.Ridge.Scale)
@@ -299,13 +303,14 @@ ridge.sim.gpd <- function(data, locations, MLE.gpd_Scale, MLE.gpd_Shape, n.site,
     rl_30_truetmp <- rl_30_truetmp[newsite]
     rl_40_truetmp <- rl_40_truetmp[newsite]
     rl_50_truetmp <- rl_50_truetmp[newsite]
+    rl_100_truetmp <- rl_100_truetmp[newsite]
     MLE.scale.tmp <-  MLE.scale.tmp[newsite]
     MLE.shape.tmp <- MLE.shape.tmp[newsite]
     MLE.rl10.tmp <- MLE.rl10.tmp[newsite]
     MLE.rl20.tmp <- MLE.rl20.tmp[newsite]
     MLE.rl30.tmp <- MLE.rl30.tmp[newsite]
     MLE.rl40.tmp <- MLE.rl40.tmp[newsite]
-    MLE.rl50.tmp <- MLE.rl50.tmp[newsite]
+    MLE.rl100.tmp <- MLE.rl100.tmp[newsite]
     
     #results
     #mse.shape.TayIter[k] <- mse(param.shape.true, MLE.Ridge.Shape)
@@ -338,7 +343,7 @@ ridge.sim.gpd <- function(data, locations, MLE.gpd_Scale, MLE.gpd_Shape, n.site,
               param.scale.true=param.scale.true, param.shape.true=param.shape.true,
               MLE.scale.tmp=MLE.scale.tmp, MLE.shape.tmp=MLE.shape.tmp,
               rl_10_truetmp=rl_10_truetmp,rl_20_truetmp=rl_20_truetmp, rl_30_truetmp=rl_30_truetmp, 
-              rl_40_truetmp=rl_40_truetmp, rl_50_truetmp=rl_50_truetmp, 
+              rl_40_truetmp=rl_40_truetmp, rl_50_truetmp=rl_50_truetmp, rl_100_truetmp=rl_100_truetmp,
               newthresh=newthresh, zeta = zeta,
               Constrained.Ridge.Scale=Constrained.R.Scale, Constrained.Ridge.Shape=Constrained.R.Shape,
               Count.Ridge.Scale = Count.R.Scale, Count.Ridge.Shape = Count.R.Shape,
@@ -385,6 +390,7 @@ lasso.sim.gpd <- function(data, locations, MLE.gpd_Scale, MLE.gpd_Shape, n.site,
   rl_30_truetmp <- rl_30_true
   rl_40_truetmp <- rl_40_true
   rl_50_truetmp <- rl_50_true
+  rl_100_truetmp <- rl_100_true
   #set tmp MLE for mse comparison
   MLE.scale.tmp <- MLE.gpd_Scale
   MLE.shape.tmp <- MLE.gpd_Shape
@@ -393,6 +399,7 @@ lasso.sim.gpd <- function(data, locations, MLE.gpd_Scale, MLE.gpd_Shape, n.site,
   MLE.rl30.tmp <- rl_30_GPDSpatial
   MLE.rl40.tmp <- rl_40_GPDSpatial
   MLE.rl50.tmp <- rl_50_GPDSpatial
+  MLE.rl100.tmp <- rl_100_GPDSpatial
   
   ########################################################################################
   #ESTIMATE SCALE
@@ -512,6 +519,7 @@ lasso.sim.gpd <- function(data, locations, MLE.gpd_Scale, MLE.gpd_Shape, n.site,
     rl_30_truetmp <- rl_30_truetmp[newsite]
     rl_40_truetmp <- rl_40_truetmp[newsite]
     rl_50_truetmp <- rl_50_truetmp[newsite]
+    rl_100_truetmp <- rl_100_truetmp[newsite]
     MLE.scale.tmp <-  MLE.scale.tmp[newsite]
     MLE.shape.tmp <- MLE.shape.tmp[newsite]
     MLE.rl10.tmp <- MLE.rl10.tmp[newsite]
@@ -519,6 +527,7 @@ lasso.sim.gpd <- function(data, locations, MLE.gpd_Scale, MLE.gpd_Shape, n.site,
     MLE.rl30.tmp <- MLE.rl30.tmp[newsite]
     MLE.rl40.tmp <- MLE.rl40.tmp[newsite]
     MLE.rl50.tmp <- MLE.rl50.tmp[newsite]
+    MLE.rl100.tmp <- MLE.rl100.tmp[newsite]
     
     #results
     #mse.scale.TayIter[k] <- mse(param.scale.true, MLE.Lasso.Scale)
@@ -654,6 +663,7 @@ lasso.sim.gpd <- function(data, locations, MLE.gpd_Scale, MLE.gpd_Shape, n.site,
     rl_30_truetmp <- rl_30_truetmp[newsite]
     rl_40_truetmp <- rl_40_truetmp[newsite]
     rl_50_truetmp <- rl_50_truetmp[newsite]
+    rl_100_truetmp <- rl_100_truetmp[newsite]
     MLE.scale.tmp <-  MLE.scale.tmp[newsite]
     MLE.shape.tmp <- MLE.shape.tmp[newsite]
     MLE.rl10.tmp <- MLE.rl10.tmp[newsite]
@@ -661,6 +671,7 @@ lasso.sim.gpd <- function(data, locations, MLE.gpd_Scale, MLE.gpd_Shape, n.site,
     MLE.rl30.tmp <- MLE.rl30.tmp[newsite]
     MLE.rl40.tmp <- MLE.rl40.tmp[newsite]
     MLE.rl50.tmp <- MLE.rl50.tmp[newsite]
+    MLE.rl100.tmp <- MLE.rl100.tmp[newsite]
     
     #results
     #mse.shape.TayIter[k] <- mse(param.shape.true, MLE.Lasso.Shape)
@@ -693,7 +704,7 @@ lasso.sim.gpd <- function(data, locations, MLE.gpd_Scale, MLE.gpd_Shape, n.site,
               param.scale.true=param.scale.true, param.shape.true=param.shape.true,
               MLE.scale.tmp=MLE.scale.tmp, MLE.shape.tmp=MLE.shape.tmp,
               rl_10_truetmp=rl_10_truetmp,rl_20_truetmp=rl_20_truetmp, rl_30_truetmp=rl_30_truetmp, 
-              rl_40_truetmp=rl_40_truetmp, rl_50_truetmp=rl_50_truetmp, 
+              rl_40_truetmp=rl_40_truetmp, rl_50_truetmp=rl_50_truetmp, rl_100_truetmp=rl_100_truetmp, 
               newthresh=newthresh, zeta = zeta,
               Constrained.Lasso.Scale=Constrained.L.Scale, Constrained.Lasso.Shape=Constrained.L.Shape,
               Count.Lasso.Scale = Count.L.Scale, Count.Lasso.Shape = Count.L.Shape,

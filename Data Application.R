@@ -24,8 +24,12 @@ file.sources = list.files(
 sapply(file.sources, source, .GlobalEnv)
 
 
+dir <- "~/STAT - Research/Extremes Project/Final Paper/" #set directory that contains data
+dir.heatmap <- "~/STAT - Research/Extremes Project/Final Paper/Heatmaps/" #set directory that contains data
+
+
 #bring in and initialize data
-load("C:/Users/Carly/Documents/Danielle/STAT - Research/Extremes Project/Final Paper/precip.RData")
+load(paste0(dir,"precip.RData"))
 
 data <- as.matrix(t(Yvec))[1:32,] #Historical
 locations <- s
@@ -42,7 +46,7 @@ ggplot(location) + theme_classic()+
       coord_fixed(ratio=1.1, xlim=NULL, ylim=NULL)+
       theme(axis.text.x = element_blank(), axis.text.y = element_blank(), 
             axis.ticks=element_blank() ,axis.line = element_blank() )
-ggsave("~/Danielle/STAT - Research/Extremes Project/Final Paper/HeatMaps/DataApp1_GridSites.png", width = 6, height = 4.5)
+ggsave(paste0(dir.heatmap,"DataApp1_GridSites.png"), width = 6, height = 4.5)
 
 
 #settings

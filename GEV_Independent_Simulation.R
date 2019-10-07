@@ -48,12 +48,12 @@ ss <- 1
 for(i in 1:length(seed)){
   for(j in 1:(sim[i])){
 
-data <- read.csv(paste0("~/Danielle/STAT - Research/Extremes Project/Cluster Results/GEV_Final_Paper_Data/Data_",seed[i],"_",j,".csv"))
-locations <- read.csv(paste0("~/Danielle/STAT - Research/Extremes Project/Cluster Results/GEV_Final_Paper_Data/Locations_",seed[i],"_",j,".csv"))
-sim.loc <- read.csv(paste0("~/Danielle/STAT - Research/Extremes Project/Cluster Results/GEV_Final_Paper_Data/Loc_",seed[i],".csv"))
-sim.scale <- read.csv(paste0("~/Danielle/STAT - Research/Extremes Project/Cluster Results/GEV_Final_Paper_Data/Scale_",seed[i],".csv"))
-sim.shape <- read.csv(paste0("~/Danielle/STAT - Research/Extremes Project/Cluster Results/GEV_Final_Paper_Data/Shape_",seed[i],".csv"))
-sim.results <- read.csv(paste0("~/Danielle/STAT - Research/Extremes Project/Cluster Results/GEV_Final_Paper_Data/Results/GEV_",seed[i],".csv"))
+data <- read.csv(paste0("~/STAT - Research/Extremes Project/Cluster Results/GEV_Final_Paper_Data/Data_",seed[i],"_",j,".csv"))
+locations <- read.csv(paste0("~/STAT - Research/Extremes Project/Cluster Results/GEV_Final_Paper_Data/Locations_",seed[i],"_",j,".csv"))
+sim.loc <- read.csv(paste0("~/STAT - Research/Extremes Project/Cluster Results/GEV_Final_Paper_Data/Loc_",seed[i],".csv"))
+sim.scale <- read.csv(paste0("~/STAT - Research/Extremes Project/Cluster Results/GEV_Final_Paper_Data/Scale_",seed[i],".csv"))
+sim.shape <- read.csv(paste0("~/STAT - Research/Extremes Project/Cluster Results/GEV_Final_Paper_Data/Shape_",seed[i],".csv"))
+sim.results <- read.csv(paste0("~/STAT - Research/Extremes Project/Cluster Results/GEV_Final_Paper_Data/Results/GEV_",seed[i],".csv"))
 
 data <- data[,2:201]
 locations <- locations[,2:3]

@@ -22,14 +22,11 @@ sapply(file.sources, source, .GlobalEnv)
 #sim <- as.integer(args[1])
 #seed <- as.integer(args[2])
 
-sim <- 10
-boot.iter <- 200
-seed <- 4591
-sim <- 10
-seed <- 4591
+sim <- 200
+seed <- 1234
 
 ss <- 1
-n.obs <- 200 #m
+n.obs <- 500 #m
 n.site<- 200 #n
 cov <- 'whitmat'
 range <- c(1)
@@ -58,9 +55,9 @@ iter.ridge <- iter.lasso <- iter.fail <- 1
 fail.GPDSpatial <- fail.GPDRidge <- fail.GPDLasso <- vector()
 
 #store final results
-mse.scale.GPDSpatial <- mse.shape.GPDSpatial <- mse.rl10.GPDSpatial <- mse.rl20.GPDSpatial <- mse.rl30.GPDSpatial <- mse.rl40.GPDSpatial <- mse.rl50.GPDSpatial <- time.GPDSpatial <- vector()
-mse.scale.GPDRidge <- mse.shape.GPDRidge <- mse.rl10.GPDRidge <- mse.rl20.GPDRidge <- mse.rl30.GPDRidge <- mse.rl40.GPDRidge <- mse.rl50.GPDRidge <- time.GPDRidge <- vector()
-mse.scale.GPDLasso <- mse.shape.GPDLasso <- mse.rl10.GPDLasso <- mse.rl20.GPDLasso <- mse.rl30.GPDLasso <- mse.rl40.GPDLasso <- mse.rl50.GPDLasso <- time.GPDLasso <- vector()
+mse.scale.GPDSpatial <- mse.shape.GPDSpatial <- mse.rl10.GPDSpatial <- mse.rl20.GPDSpatial <- mse.rl30.GPDSpatial <- mse.rl40.GPDSpatial <- mse.rl50.GPDSpatial <-mse.rl100.GPDSpatial <- time.GPDSpatial <- vector()
+mse.scale.GPDRidge <- mse.shape.GPDRidge <- mse.rl10.GPDRidge <- mse.rl20.GPDRidge <- mse.rl30.GPDRidge <- mse.rl40.GPDRidge <- mse.rl50.GPDRidge <-mse.rl100.GPDRidge <- time.GPDRidge <- vector()
+mse.scale.GPDLasso <- mse.shape.GPDLasso <- mse.rl10.GPDLasso <- mse.rl20.GPDLasso <- mse.rl30.GPDLasso <- mse.rl40.GPDLasso <- mse.rl50.GPDLasso <-mse.rl100.GPDLasso <- time.GPDLasso <- vector()
 
 lam.scale <- lam.shape <- lam.scale.L <- lam.shape.L <- vector()
 Constrained.Ridge.Scale <- Constrained.Ridge.Shape <- Constrained.Lasso.Scale <- Constrained.Lasso.Shape <- vector()
@@ -152,11 +149,13 @@ for(ss in 1:sim){
   rl_30_GPDSpatial <- gpd.est_rl(MLE.gpd_Scale, MLE.gpd_Shape, thresh, zeta.i, time = t3)
   rl_40_GPDSpatial <- gpd.est_rl(MLE.gpd_Scale, MLE.gpd_Shape, thresh, zeta.i, time = t4)
   rl_50_GPDSpatial <- gpd.est_rl(MLE.gpd_Scale, MLE.gpd_Shape, thresh, zeta.i, time = t5)
+  rl_100_GPDSpatial <- gpd.est_rl(MLE.gpd_Scale, MLE.gpd_Shape, thresh, zeta.i, time = t10)
   mse.rl10.GPDSpatial[ss] <- mse(rl_10_true, rl_10_GPDSpatial)
   mse.rl20.GPDSpatial[ss] <- mse(rl_20_true, rl_20_GPDSpatial)
   mse.rl30.GPDSpatial[ss] <- mse(rl_30_true, rl_30_GPDSpatial)
   mse.rl40.GPDSpatial[ss] <- mse(rl_40_true, rl_40_GPDSpatial)
   mse.rl50.GPDSpatial[ss] <- mse(rl_50_true, rl_50_GPDSpatial)
+  mse.rl100.GPDSpatial[ss] <- mse(rl_100_true, rl_100_GPDSpatial)
   
   time.GPDSpatial[ss] <- end.GPDSpatial[3]
   
@@ -183,6 +182,7 @@ for(ss in 1:sim){
   rl_30_truetmp <- ridgeresults$rl_30_truetmp
   rl_40_truetmp <- ridgeresults$rl_40_truetmp
   rl_50_truetmp <- ridgeresults$rl_50_truetmp
+  rl_100_truetmp <- ridgeresults$rl_100_truetmp
   Constrained.Ridge.Scale[ss]<- ridgeresults$Constrained.Ridge.Scale
   Constrained.Ridge.Shape[ss]<- ridgeresults$Constrained.Ridge.Shape
   Count.Ridge.Scale[ss]<- ridgeresults$Count.Ridge.Scale
@@ -204,11 +204,13 @@ for(ss in 1:sim){
   rl_30_GPDRidge <- gpd.est_rl(MLE.Ridge.Scale, MLE.Ridge.Shape, newthresh.r, zeta.r, time = t3)
   rl_40_GPDRidge <- gpd.est_rl(MLE.Ridge.Scale, MLE.Ridge.Shape, newthresh.r, zeta.r, time = t4)
   rl_50_GPDRidge <- gpd.est_rl(MLE.Ridge.Scale, MLE.Ridge.Shape, newthresh.r, zeta.r, time = t5)
+  rl_100_GPDRidge <- gpd.est_rl(MLE.Ridge.Scale, MLE.Ridge.Shape, newthresh.r, zeta.r, time = t10)
   mse.rl10.GPDRidge[ss] <- mse(rl_10_truetmp, rl_10_GPDRidge)
   mse.rl20.GPDRidge[ss] <- mse(rl_20_truetmp, rl_20_GPDRidge)
   mse.rl30.GPDRidge[ss] <- mse(rl_30_truetmp, rl_30_GPDRidge)
   mse.rl40.GPDRidge[ss] <- mse(rl_40_truetmp, rl_40_GPDRidge)
   mse.rl50.GPDRidge[ss] <- mse(rl_50_truetmp, rl_50_GPDRidge)
+  mse.rl100.GPDRidge[ss] <- mse(rl_100_truetmp, rl_100_GPDRidge)
   
   time.GPDRidge[ss] <- end.GPDRidge[3]
   fail.GPDRidge[ss] <- n.site - n.newsite
@@ -236,6 +238,7 @@ for(ss in 1:sim){
   rl_30_truetmp <- lassoresults$rl_30_truetmp
   rl_40_truetmp <- lassoresults$rl_40_truetmp
   rl_50_truetmp <- lassoresults$rl_50_truetmp
+  rl_100_truetmp <- lassoresults$rl_100_truetmp
   Constrained.Lasso.Scale[ss]<- lassoresults$Constrained.Lasso.Scale
   Constrained.Lasso.Shape[ss]<- lassoresults$Constrained.Lasso.Shape
   Count.Lasso.Scale[ss]<- lassoresults$Count.Lasso.Scale
@@ -256,11 +259,14 @@ for(ss in 1:sim){
   rl_30_GPDLasso <- gpd.est_rl(MLE.Lasso.Scale, MLE.Lasso.Shape, newthresh.l, zeta.l, time = t3)
   rl_40_GPDLasso <- gpd.est_rl(MLE.Lasso.Scale, MLE.Lasso.Shape, newthresh.l, zeta.l, time = t4)
   rl_50_GPDLasso <- gpd.est_rl(MLE.Lasso.Scale, MLE.Lasso.Shape, newthresh.l, zeta.l, time = t5)
+  rl_100_GPDLasso <- gpd.est_rl(MLE.Lasso.Scale, MLE.Lasso.Shape, newthresh.l, zeta.l, time = t10)
+  
   mse.rl10.GPDLasso[ss] <- mse(rl_10_truetmp, rl_10_GPDLasso)
   mse.rl20.GPDLasso[ss] <- mse(rl_20_truetmp, rl_20_GPDLasso)
   mse.rl30.GPDLasso[ss] <- mse(rl_30_truetmp, rl_30_GPDLasso)
   mse.rl40.GPDLasso[ss] <- mse(rl_40_truetmp, rl_40_GPDLasso)
   mse.rl50.GPDLasso[ss] <- mse(rl_50_truetmp, rl_50_GPDLasso)
+  mse.rl100.GPDLasso[ss] <- mse(rl_100_truetmp, rl_100_GPDLasso)
   
   time.GPDLasso[ss] <- end.GPDLasso[3]
   fail.GPDLasso[ss] <- n.site - n.newsite
@@ -316,6 +322,8 @@ mse.gpd.rl20.mat <- matrix(c(mse.rl20.GPDSpatial, mse.rl20.GPDRidge, mse.rl20.GP
 mse.gpd.rl30.mat <- matrix(c(mse.rl30.GPDSpatial, mse.rl30.GPDRidge, mse.rl30.GPDLasso),nrow = sim, ncol =3, byrow = FALSE)
 mse.gpd.rl40.mat <- matrix(c(mse.rl40.GPDSpatial, mse.rl40.GPDRidge, mse.rl40.GPDLasso),nrow = sim, ncol =3, byrow = FALSE)
 mse.gpd.rl50.mat <- matrix(c(mse.rl50.GPDSpatial, mse.rl50.GPDRidge, mse.rl50.GPDLasso),nrow = sim, ncol =3, byrow = FALSE)
+mse.gpd.rl100.mat <- matrix(c(mse.rl100.GPDSpatial, mse.rl100.GPDRidge, mse.rl100.GPDLasso),nrow = sim, ncol =3, byrow = FALSE)
+
 time.gpd.mat<- matrix(c(time.GPDSpatial, time.GPDRidge, time.GPDLasso),nrow = sim, ncol =3, byrow = FALSE)
 fail.gpd.mat <- matrix(c(fail.GPDSpatial, fail.GPDRidge, fail.GPDLasso),nrow = sim, ncol =3, byrow = FALSE)
 constrained.mat <- matrix(c(Constrained.Ridge.Scale, Constrained.Ridge.Shape, Constrained.Lasso.Scale, Constrained.Lasso.Shape),nrow=sim, ncol=4, byrow=FALSE )
@@ -327,9 +335,10 @@ tmp <-matrix(c(mse.gpd.scale.mat,
                mse.gpd.rl30.mat,
                mse.gpd.rl40.mat,
                mse.gpd.rl50.mat,
+               mse.gpd.rl100.mat,
                time.gpd.mat,
                fail.gpd.mat,
-               constrained.mat), ncol = 31, byrow = FALSE)
+               constrained.mat), ncol = 34, byrow = FALSE)
 
 colnames(tmp)<-c("MSE Scale Spat","MSE Scale Ridge","MSE Scale Lasso",
                  "MSE Shape Spat","MSE Shape Ridge","MSE Shape Lasso",
@@ -338,6 +347,7 @@ colnames(tmp)<-c("MSE Scale Spat","MSE Scale Ridge","MSE Scale Lasso",
                  "MSE RL30 Spat","MSE RL30 Ridge","MSE RL30 Lasso",
                  "MSE RL40 Spat","MSE RL40 Ridge","MSE RL40 Lasso",
                  "MSE RL50 Spat","MSE RL50 Ridge","MSE RL50 Lasso",
+                 "MSE RL100 Spat","MSE RL100 Ridge","MSE RL100 Lasso",
                  "Time Spat","Time Ridge","Time Lasso",
                  "Fail Spat","Fail Ridge","Fail Lasso",
                  "Constrained Ridge Scale","Constrained Ridge Shape","Constrained Lasso Scale","Constrained Lasso Shape"

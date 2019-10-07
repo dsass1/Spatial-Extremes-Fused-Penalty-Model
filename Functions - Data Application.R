@@ -1000,60 +1000,10 @@ DataApp.CI <-function(data, n.site, n.obs, locations){
 ###########################################################################################
 ###########################################################################################
 #Heatmap
-heatmap <- function (lat, lon, data, 
-                     color_low="white",color_high="darkred",color_mid="white",color_na=gray(0.9),zeroiswhite=FALSE,
-                     xlim=NULL, ylim=NULL, zlim=NULL, midpt=NULL, ylab = NULL,
-                     mainTitle="", legendTitle="") {
-  
-  # Created by Susheela Singh!
-  
-  # Store the base data of the underlying map
-  baseData <- map_data("state")
-  
-  
-  
-  # Combine the data into a dataframe
-  dfMap <- as.data.frame(cbind(lon, lat, data))
-  colnames(dfMap) <- c("lon", "lat", "Value")
-  
-  # Set limits for x, y, z if not specified as parameters
-  if (is.null(xlim)) { xlim <- range( lon,na.rm=TRUE) }
-  if (is.null(ylim)) { ylim <- range( lat,na.rm=TRUE) }
-  if (is.null(zlim)) { zlim <- range(data,na.rm=TRUE) }
-  
-  # Create the plot
-  p <- ggplot(dfMap, aes(x=lon, y=lat, fill=Value)) + theme_bw()
-  p <- p + geom_tile()
-  p <- p + geom_polygon(data=baseData, aes(x=long, y=lat, group=group), 
-                        colour="black", fill="white", alpha=0) 
-  p <- p + labs(title=paste(mainTitle,"\n",sep=""), x="", y=paste(ylab,"\n",sep=""))
-  p <- p + theme(plot.title = element_text(hjust=0.5, face="bold", size = rel(1.5)))
-  p <- p + theme(axis.title.y = element_text(face="bold", size= rel(1.5)))
-  p <- p + coord_fixed(ratio=1.1, xlim=xlim, ylim=ylim)
-  
-  if(zeroiswhite){
-    p <- p + scale_fill_gradient2(low=color_low, 
-                                  high=color_high,
-                                  na.value=color_na,
-                                  limits=zlim,
-                                  midpoint = midpt,
-                                  name=legendTitle) 
-  }
-  if(!zeroiswhite){
-    p <- p + scale_fill_gradient2(low=color_low, 
-                                  high=color_high,
-                                  na.value=color_na,
-                                  limits=zlim,
-                                  midpoint = midpt,
-                                  name=legendTitle) 
-  }
-  # ggsave(paste0("~/Danielle/STAT - Research/Extremes Project/Cluster Results/HeatMaps/HeatMap_DataApp_",mainTitle,".png"), width = 6, height = 4)
-  
-  return(p)  
-}
+
 
 heatmap2 <- function (lat, lon, data, 
-                      color_low="white",color_high="darkred",color_mid="white",color_na=gray(0.9),zeroiswhite=FALSE,
+                      color_na=gray(0.9), label=NULL,
                       xlim=NULL, ylim=NULL, zlim=NULL, midpt=NULL, ylab = NULL,
                       mainTitle="", legendTitle="") {
   
@@ -1090,28 +1040,20 @@ heatmap2 <- function (lat, lon, data,
   p <- p + theme(plot.title = element_text(hjust=0.5, face="bold", size = rel(1.5)))
   p <- p + theme(axis.title.y = element_text(face="bold", size= rel(1.5)))
   p <- p + coord_fixed(ratio=1.1, xlim=xlim, ylim=ylim)
+
   
-  if(zeroiswhite){
-    p <- p + scale_fill_gradient2(low=color_low, 
-                                  high=color_high,
-                                  na.value=color_na,
-                                  limits=zlim,
-                                  #breaks=breaks,
-                                  #label=breaks,
-                                  midpoint = midpt,
-                                  name=legendTitle) 
-  }
-  if(!zeroiswhite){
-    p <- p + scale_fill_gradient2(low=color_low, 
-                                  high=color_high,
-                                  na.value=color_na,
-                                  limits=zlim,
-                                  #breaks=breaks,
-                                  #label=breaks,
-                                  midpoint = midpt,
-                                  name=legendTitle) 
-  }
-  # ggsave(paste0("~/Danielle/STAT - Research/Extremes Project/Cluster Results/HeatMaps/HeatMap_DataApp_",mainTitle,".png"), width = 6, height = 4)
-  
+#  p <- p + scale_fill_gradient2(low=color_low, 
+#                                  high=color_high,
+#                                  mid = color_mid,
+#                                  na.value=color_na,
+#                                  limits=zlim,
+#                                  midpoint = midpt,
+#                                  name=legendTitle) 
+
+
+  col = c('white', 'lightgoldenrod','gold','orange','orangered','darkred')
+  p <- p + scale_fill_gradientn(colours=col)
+  p
+
   return(p)  
 }
