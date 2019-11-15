@@ -2,24 +2,39 @@
 ##########################################################################################
 ##########################################################################################
 ##########################################################################################
+#directory with stationary GEV results
+dir.gev <- "~/STAT - Research/Extremes Project/Final Paper/GEV_Final_Paper_Data/Results/"
+#directory with Schlather results
+dir.max <- "~/STAT - Research/Extremes Project/Final Paper/Schlather/Results/"
+#directory with nonstationary GEV results
+dir.gev2 = "~/STAT - Research/Extremes Project/Final Paper/NonStationary/7500 Iter 5000 Burn/Results/"
+#directory with independent simulation results for Appendix
+dir.ind <- "~/STAT - Research/Extremes Project/Final Paper/GEV_Final_Paper_Data/"
+#directory with stationary GPD results
+dir.gpd <- "~/STAT - Research/Extremes Project/Final Paper/GPD_Final_Paper_Data/Stationary/"
+#directory with nostationary GPD results
+dir.gpd2 <- "~/STAT - Research/Extremes Project/Final Paper/GPD_Final_Paper_Data/NonStationary/"
+
+#set directory where plots should be saved
+plot.dir = "~/STAT - Research/Extremes Project/Final Paper/BoxPlots/"
+
+
 ##GEV Results
-
-#load cluster results
-dir = "~/STAT - Research/Extremes Project/Final Paper/GEV_Final_Paper_Data/Results/"
-files = list.files(dir)
-gev_data = read.csv(paste0(dir, files[1]))
+#load results
+files = list.files(dir.gev)
+gev_data = read.csv(paste0(dir.gev, files[1]))
 for(f in 2:length(files)) {
-  gev_data = rbind(gev_data, read.csv(paste0(dir, files[f])))
+  gev_data = rbind(gev_data, read.csv(paste0(dir.gev, files[f])))
 }
 
-dir = "~/STAT - Research/Extremes Project/Final Paper/Schlather/Results/"
-files = list.files(dir)
-gev_max = read.csv(paste0(dir, files[1]))
+files = list.files(dir.max)
+gev_max = read.csv(paste0(dir.max, files[1]))
 for(f in 2:length(files)) {
-  gev_max = rbind(gev_max, read.csv(paste0(dir, files[f])))
+  gev_max = rbind(gev_max, read.csv(paste0(dir.max, files[f])))
 }
 
-
+##################################################################################
+#Table of averages for appendix
 avgloc <- c(mean(gev_data$MSE.Loc.Spat), mean(gev_max$MSE.Loc.Max), mean(gev_data$MSE.Loc.Bayes), mean(gev_data$MSE.Loc.Ridge),mean(gev_data$MSE.Loc.Lasso))
 avgscale <- c(mean(gev_data$MSE.Scale.Spat), mean(gev_max$MSE.Scale.Max), mean(gev_data$MSE.Scale.Bayes), mean(gev_data$MSE.Scale.Ridge),mean(gev_data$MSE.Scale.Lasso))
 avgshape <- c(mean(gev_data$MSE.Shape.Spat), mean(gev_max$MSE.Shape.Max), mean(gev_data$MSE.Shape.Bayes), mean(gev_data$MSE.Shape.Ridge),mean(gev_data$MSE.Shape.Lasso))
@@ -78,7 +93,7 @@ ggplot(gev_plot_data, aes(x=Model, y=RootLoc))+
   theme(axis.text.x = element_text(size=20, angle =45, hjust = 1))+
   theme(axis.text.y = element_text(size=15))+
   labs(title="Location", y="Logarithmic RMSE", x= NULL)
-ggsave("~/STAT - Research/Extremes Project/Final Paper/BoxPlots/BoxPlot_SimGEV_Loc.png", width = 4, height = 6)
+ggsave(paste0(plot.dir,"BoxPlot_SimGEV_Loc.png"), width = 4, height = 6)
 
 ggplot(gev_plot_data, aes(x=Model, y=RootScale))+
   theme_classic()+
@@ -88,7 +103,7 @@ ggplot(gev_plot_data, aes(x=Model, y=RootScale))+
   theme(axis.text.x = element_text(size=20, angle =45, hjust = 1))+
   theme(axis.text.y = element_text(size=15))+
   labs(title="Scale", y="Logarithmic RMSE", x= NULL)
-ggsave("~/STAT - Research/Extremes Project/Final Paper/BoxPlots/BoxPlot_SimGEV_Scale.png", width = 4, height = 6)
+ggsave(paste0(plot.dir,"BoxPlot_SimGEV_Scale.png"), width = 4, height = 6)
 
 ggplot(gev_plot_data, aes(x=Model, y=RootShape))+
   theme_classic()+
@@ -98,7 +113,7 @@ ggplot(gev_plot_data, aes(x=Model, y=RootShape))+
   theme(axis.text.x = element_text(size=20, angle =45, hjust = 1))+
   theme(axis.text.y = element_text(size=15))+
   labs(title="Shape", y="Logarithmic RMSE", x= NULL)
-ggsave("~/STAT - Research/Extremes Project/Final Paper/BoxPlots/BoxPlot_SimGEV_Shape.png", width = 4, height = 6)
+ggsave(paste0(plot.dir,"BoxPlot_SimGEV_Shape.png"), width = 4, height = 6)
 
 ggplot(gev_plot_data, aes(x=Model, y=RootRL10))+
   theme_classic()+
@@ -108,7 +123,7 @@ ggplot(gev_plot_data, aes(x=Model, y=RootRL10))+
   theme(axis.text.x = element_text(size=20, angle =45, hjust = 1))+
   theme(axis.text.y = element_text(size=15))+
   labs(title="10-year Return Level", y="Logarithmic RMSE", x= NULL)
-ggsave("~/STAT - Research/Extremes Project/Final Paper/BoxPlots/BoxPlot_SimGEV_RL10.png", width = 4, height = 6)
+ggsave(paste0(plot.dir,"BoxPlot_SimGEV_RL10.png"), width = 4, height = 6)
 
 ggplot(gev_plot_data, aes(x=Model, y=RootRL20))+
   theme_classic()+
@@ -118,7 +133,7 @@ ggplot(gev_plot_data, aes(x=Model, y=RootRL20))+
   theme(axis.text.x = element_text(size=20, angle =45, hjust = 1))+
   theme(axis.text.y = element_text(size=15))+
   labs(title="20-year Return Level", y="Logarithmic RMSE", x= NULL)
-ggsave("~/STAT - Research/Extremes Project/Final Paper/BoxPlots/BoxPlot_SimGEV_RL20.png", width = 4, height = 6)
+ggsave(paste0(plot.dir,"BoxPlot_SimGEV_RL20.png"), width = 4, height = 6)
 
 ggplot(gev_plot_data, aes(x=Model, y=RootRL50))+
   theme_classic()+
@@ -128,7 +143,7 @@ ggplot(gev_plot_data, aes(x=Model, y=RootRL50))+
   theme(axis.text.x = element_text(size=20, angle =45, hjust = 1))+
   theme(axis.text.y = element_text(size=15))+
   labs(title="50-year Return Level", y="Logarithmic RMSE", x= NULL)
-ggsave("~/STAT - Research/Extremes Project/Final Paper/BoxPlots/BoxPlot_SimGEV_RL50.png", width = 4, height = 6)
+ggsave(paste0(plot.dir,"BoxPlot_SimGEV_RL50.png"), width = 4, height = 6)
 
 ggplot(gev_plot_data, aes(x=Model, y=RootRL100))+
   theme_classic()+
@@ -138,20 +153,17 @@ ggplot(gev_plot_data, aes(x=Model, y=RootRL100))+
   theme(axis.text.x = element_text(size=20, angle =45, hjust = 1))+
   theme(axis.text.y = element_text(size=15))+
   labs(title="100-year Return Level", y="Logarithmic RMSE", x= NULL)
-ggsave("~/STAT - Research/Extremes Project/Final Paper/BoxPlots/BoxPlot_SimGEV_RL100.png", width = 4, height = 6)
+ggsave(paste0(plot.dir,"BoxPlot_SimGEV_RL100.png"), width = 4, height = 6)
 
 ##########################################################################################
 ##########################################################################################
 #GEV NONSTATIONARY
 #nonstationary: 5000 burn in 7500 iterations
-dir = "~/STAT - Research/Extremes Project/NonStationary/7500 Iter 5000 Burn - Adjusted Cov/Results/"
-
-files = list.files(dir)
-nonstat_data2 = read.csv(paste0(dir, files[1]))
+files = list.files(dir.gev2)
+nonstat_data2 = read.csv(paste0(dir.gev2, files[1]))
 for(f in 2:length(files)) {
-  nonstat_data2 = rbind(nonstat_data2, read.csv(paste0(dir, files[f])))
+  nonstat_data2 = rbind(nonstat_data2, read.csv(paste0(dir.gev2, files[f])))
 }
-
 
 avgloc <- c(mean(nonstat_data2$MSE.Loc.Spat), mean(nonstat_data2$MSE.Loc.Spat2),mean(nonstat_data2$MSE.Loc.Max), mean(nonstat_data2$MSE.Loc.Bayes), mean(nonstat_data2$MSE.Loc.Ridge),mean(nonstat_data2$MSE.Loc.Lasso))
 avgscale <- c(mean(nonstat_data2$MSE.Scale.Spat), mean(nonstat_data2$MSE.Scale.Spat2),mean(nonstat_data2$MSE.Scale.Max),mean(nonstat_data2$MSE.Scale.Bayes),mean(nonstat_data2$MSE.Scale.Ridge),mean(nonstat_data2$MSE.Scale.Lasso))
@@ -177,7 +189,6 @@ colnames(GEV_avgMSE)<-c("Spat","Spat (Ridge Sites)","Max", "Bayes", "Ridge","Las
 rownames(GEV_avgMSE)<-c("Loc","Scale","Shape","RL10","RL20","RL50","RL100","Time","Fail")
 GEV_MSE <- round(GEV_avgMSE,4)
 
-GEV_MSE
 sqrt(GEV_MSE)
 
 
@@ -216,7 +227,7 @@ ggplot(gev_plot_data, aes(x=Model, y=RootLoc))+
   theme(axis.text.x = element_text(size=20, angle =45, hjust = 1))+
   theme(axis.text.y = element_text(size=15))+
   labs(title="Location", y="Logarithmic RMSE", x= NULL)
-ggsave("~/STAT - Research/Extremes Project/Final Paper/BoxPlots/BoxPlot_NonStationary_Loc.png", width = 4, height = 6)
+ggsave(paste0(plot.dir,"BoxPlot_NonStationary_Loc.png"), width = 4, height = 6)
 
 ggplot(gev_plot_data, aes(x=Model, y=RootScale))+
   theme_classic()+
@@ -226,7 +237,7 @@ ggplot(gev_plot_data, aes(x=Model, y=RootScale))+
   theme(axis.text.x = element_text(size=20, angle =45, hjust = 1))+
   theme(axis.text.y = element_text(size=15))+
   labs(title="Scale", y="Logarithmic RMSE", x= NULL)
-ggsave("~/STAT - Research/Extremes Project/Final Paper/BoxPlots/BoxPlot_NonStationary_Scale.png", width = 4, height = 6)
+ggsave(paste0(plot.dir,"BoxPlot_NonStationary_Scale.png"), width = 4, height = 6)
 
 ggplot(gev_plot_data, aes(x=Model, y=RootShape))+
   theme_classic()+
@@ -236,7 +247,7 @@ ggplot(gev_plot_data, aes(x=Model, y=RootShape))+
   theme(axis.text.x = element_text(size=20, angle =45, hjust = 1))+
   theme(axis.text.y = element_text(size=15))+
   labs(title="Shape", y="Logarithmic RMSE", x= NULL)
-ggsave("~/STAT - Research/Extremes Project/Final Paper/BoxPlots/BoxPlot_NonStationary_Shape.png", width = 4, height = 6)
+ggsave(paste0(plot.dir,"BoxPlot_NonStationary_Shape.png"), width = 4, height = 6)
 
 ggplot(gev_plot_data, aes(x=Model, y=RootRL10))+
   theme_classic()+
@@ -246,7 +257,7 @@ ggplot(gev_plot_data, aes(x=Model, y=RootRL10))+
   theme(axis.text.x = element_text(size=20, angle =45, hjust = 1))+
   theme(axis.text.y = element_text(size=15))+
   labs(title="10-year Return Level", y="Logarithmic RMSE", x= NULL)
-ggsave("~/STAT - Research/Extremes Project/Final Paper/BoxPlots/BoxPlot_NonStationary_RL10.png", width = 4, height = 6)
+ggsave(paste0(plot.dir,"BoxPlot_NonStationary_RL10.png"), width = 4, height = 6)
 
 ggplot(gev_plot_data, aes(x=Model, y=RootRL20))+
   theme_classic()+
@@ -256,7 +267,7 @@ ggplot(gev_plot_data, aes(x=Model, y=RootRL20))+
   theme(axis.text.x = element_text(size=20, angle =45, hjust = 1))+
   theme(axis.text.y = element_text(size=15))+
   labs(title="20-year Return Level", y="Logarithmic RMSE", x= NULL)
-ggsave("~/STAT - Research/Extremes Project/Final Paper/BoxPlots/BoxPlot_NonStationary_RL20.png", width = 4, height = 6)
+ggsave(paste0(plot.dir,"BoxPlot_NonStationary_RL20.png"), width = 4, height = 6)
 
 ggplot(gev_plot_data, aes(x=Model, y=RootRL50))+
   theme_classic()+
@@ -266,7 +277,7 @@ ggplot(gev_plot_data, aes(x=Model, y=RootRL50))+
   theme(axis.text.x = element_text(size=20, angle =45, hjust = 1))+
   theme(axis.text.y = element_text(size=15))+
   labs(title="50-year Return Level", y="Logarithmic RMSE", x= NULL)
-ggsave("~/STAT - Research/Extremes Project/Final Paper/BoxPlots/BoxPlot_NonStationary_RL50.png", width = 4, height = 6)
+ggsave(paste0(plot.dir,"BoxPlot_NonStationary_RL50.png"), width = 4, height = 6)
 
 ggplot(gev_plot_data, aes(x=Model, y=RootRL100))+
   theme_classic()+
@@ -276,12 +287,12 @@ ggplot(gev_plot_data, aes(x=Model, y=RootRL100))+
   theme(axis.text.x = element_text(size=20, angle =45, hjust = 1))+
   theme(axis.text.y = element_text(size=15))+
   labs(title="100-year Return Level", y="Logarithmic RMSE", x= NULL)
-ggsave("~/STAT - Research/Extremes Project/Final Paper/BoxPlots/BoxPlot_NonStationary_RL100.png", width = 4, height = 6)
+ggsave(paste0(plot.dir,"BoxPlot_NonStationary_RL100.png"), width = 4, height = 6)
 
 ##########################################################################################
 ##########################################################################################
-#GEV Independent Study: Appendix D
-GEV_Ind <- read.csv("~/STAT - Research/Extremes Project/Final Paper/GEV_Final_Paper_Data/GEV_Independent_Results.csv")
+#GEV Independent Study: Appendix E
+GEV_Ind <- read.csv(paste0(dir.ind,"GEV_Independent_Results.csv"))
 avg_ridge <- c(mean(GEV_Ind$MSE.Loc.Ridge.Ind), mean(GEV_Ind$MSE.Scale.Ridge.Ind), mean(GEV_Ind$MSE.Shape.Ridge.Ind), 
                mean(GEV_Ind$MSE.RL20.Ridge.Ind), mean(GEV_Ind$MSE.RL50.Ridge.Ind), mean(GEV_Ind$MSE.RL100.Ridge.Ind))
 avg_lasso <- c(mean(GEV_Ind$MSE.Loc.Lasso.Ind), mean(GEV_Ind$MSE.Scale.Lasso.Ind), mean(GEV_Ind$MSE.Shape.Lasso.Ind), 
@@ -328,8 +339,7 @@ Table7
 ##########################################################################################
 ##########################################################################################
 ##GPD Results
-gpd_data = read.csv("~/STAT - Research/Extremes Project/Final Paper/GPD_Final_Paper_Data/Stationary/GPD_Stationary_Results_1234.csv")
-gpd_data = read.csv("~/STAT - Research/Extremes Project/Final Paper/GPD_Final_Paper_Data/Stationary_v2/GPD_Stationary_Results_1234.csv")
+gpd_data = read.csv(paste0(dir.gpd,"GPD_Stationary_Results_1234.csv"))
 
 avgscale <- c(mean(gpd_data$MSE.Scale.Spat),mean(gpd_data$MSE.Scale.Ridge),mean(gpd_data$MSE.Scale.Lasso))
 avgshape <- c(mean(gpd_data$MSE.Shape.Spat),mean(gpd_data$MSE.Shape.Ridge),mean(gpd_data$MSE.Shape.Lasso))
@@ -350,7 +360,6 @@ colnames(GPD_avgMSE)<-c("Spat" ,"Ridge","Lasso")
 rownames(GPD_avgMSE)<-c("Scale","Shape","RL20","RL50","RL100","Time","Fail")
 GPD_MSE <- round(GPD_avgMSE,4)
 
-GPD_MSE
 sqrt(GPD_MSE)
 
 ##################################################################################
@@ -383,7 +392,7 @@ ggplot(gpd_plot_data, aes(x=Model, y=RootScale))+
   theme(axis.text.x = element_text(size=20, angle =45, hjust = 1))+
   theme(axis.text.y = element_text(size=15))+
   labs(title="Scale", y="Logarithmic RMSE", x= NULL)
-ggsave("~/STAT - Research/Extremes Project/Final Paper/BoxPlots/BoxPlot_SimGPD_Scale.png", width = 4, height = 6)
+ggsave(paste0(plot.dir,"BoxPlot_SimGPD_Scale.png"), width = 4, height = 6)
 
 ggplot(gpd_plot_data, aes(x=Model, y=RootShape))+
   theme_classic()+
@@ -393,7 +402,7 @@ ggplot(gpd_plot_data, aes(x=Model, y=RootShape))+
   theme(axis.text.x = element_text(size=20, angle =45, hjust = 1))+
   theme(axis.text.y = element_text(size=15))+
   labs(title="Shape", y="Logarithmic RMSE", x= NULL)
-ggsave("~/STAT - Research/Extremes Project/Final Paper/BoxPlots/BoxPlot_SimGPD_Shape.png", width = 4, height = 6)
+ggsave(paste0(plot.dir,"BoxPlot_SimGPD_Shape.png"), width = 4, height = 6)
 
 ggplot(gpd_plot_data, aes(x=Model, y=RootRL20))+
   theme_classic()+
@@ -403,7 +412,7 @@ ggplot(gpd_plot_data, aes(x=Model, y=RootRL20))+
   theme(axis.text.x = element_text(size=20, angle =45, hjust = 1))+
   theme(axis.text.y = element_text(size=15))+
   labs(title="20-year Return Level", y="Logarithmic RMSE", x= NULL)
-ggsave("~/STAT - Research/Extremes Project/Final Paper/BoxPlots/BoxPlot_SimGPD_RL20.png", width = 4, height = 6)
+ggsave(paste0(plot.dir,"BoxPlot_SimGPD_RL20.png"), width = 4, height = 6)
 
 ggplot(gpd_plot_data, aes(x=Model, y=RootRL50))+
   theme_classic()+
@@ -413,7 +422,7 @@ ggplot(gpd_plot_data, aes(x=Model, y=RootRL50))+
   theme(axis.text.x = element_text(size=20, angle =45, hjust = 1))+
   theme(axis.text.y = element_text(size=15))+
   labs(title="50-year Return Level", y="Logarithmic RMSE", x= NULL)
-ggsave("~/STAT - Research/Extremes Project/Final Paper/BoxPlots/BoxPlot_SimGPD_RL50.png", width = 4, height = 6)
+ggsave(paste0(plot.dir,"BoxPlot_SimGPD_RL50.png"), width = 4, height = 6)
 
 
 ggplot(gpd_plot_data, aes(x=Model, y=RootRL100))+
@@ -424,13 +433,13 @@ ggplot(gpd_plot_data, aes(x=Model, y=RootRL100))+
   theme(axis.text.x = element_text(size=20, angle =45, hjust = 1))+
   theme(axis.text.y = element_text(size=15))+
   labs(title="100-year Return Level", y="Logarithmic RMSE", x= NULL)
-ggsave("~/STAT - Research/Extremes Project/Final Paper/BoxPlots/BoxPlot_SimGPD_RL100.png", width = 4, height = 6)
+ggsave(paste0(plot.dir,"BoxPlot_SimGPD_RL100.png"), width = 4, height = 6)
 
 ########################################
 ########################################
 #Nonstationary data
 
-gpd_data = read.csv("~/STAT - Research/Extremes Project/Final Paper/GPD_Final_Paper_Data/NonStationary/GPD_Nonstationary_Results_1234.csv")
+gpd_data = read.csv(paste0(dir.gpd2,"GPD_Nonstationary_Results_1234.csv"))
 
 avgscale <- c(mean(gpd_data$MSE.Scale.Spat),mean(gpd_data$MSE.Scale.Ridge),mean(gpd_data$MSE.Scale.Lasso))
 avgshape <- c(mean(gpd_data$MSE.Shape.Spat),mean(gpd_data$MSE.Shape.Ridge),mean(gpd_data$MSE.Shape.Lasso))
@@ -484,7 +493,7 @@ ggplot(gpd_plot_data, aes(x=Model, y=RootScale))+
   theme(axis.text.x = element_text(size=20, angle =45, hjust = 1))+
   theme(axis.text.y = element_text(size=15))+
   labs(title="Scale", y="Logarithmic RMSE", x= NULL)
-ggsave("~/STAT - Research/Extremes Project/Final Paper/BoxPlots/BoxPlot_SimGPD_Nonstationary_Scale.png", width = 4, height = 6)
+ggsave(paste0(plot.dir,"BoxPlot_SimGPD_Nonstationary_Scale.png"), width = 4, height = 6)
 
 ggplot(gpd_plot_data, aes(x=Model, y=RootShape))+
   theme_classic()+
@@ -494,7 +503,7 @@ ggplot(gpd_plot_data, aes(x=Model, y=RootShape))+
   theme(axis.text.x = element_text(size=20, angle =45, hjust = 1))+
   theme(axis.text.y = element_text(size=15))+
   labs(title="Shape", y="Logarithmic RMSE", x= NULL)
-ggsave("~/STAT - Research/Extremes Project/Final Paper/BoxPlots/BoxPlot_SimGPD_Nonstationary_Shape.png", width = 4, height = 6)
+ggsave(paste0(plot.dir,"BoxPlot_SimGPD_Nonstationary_Shape.png"), width = 4, height = 6)
 
 ggplot(gpd_plot_data, aes(x=Model, y=RootRL20))+
   theme_classic()+
@@ -504,7 +513,7 @@ ggplot(gpd_plot_data, aes(x=Model, y=RootRL20))+
   theme(axis.text.x = element_text(size=20, angle =45, hjust = 1))+
   theme(axis.text.y = element_text(size=15))+
   labs(title="20-year Return Level", y="Logarithmic RMSE", x= NULL)
-ggsave("~/STAT - Research/Extremes Project/Final Paper/BoxPlots/BoxPlot_SimGPD_Nonstationary_RL20.png", width = 4, height = 6)
+ggsave(paste0(plot.dir,"BoxPlot_SimGPD_Nonstationary_RL20.png"), width = 4, height = 6)
 
 ggplot(gpd_plot_data, aes(x=Model, y=RootRL50))+
   theme_classic()+
@@ -514,7 +523,7 @@ ggplot(gpd_plot_data, aes(x=Model, y=RootRL50))+
   theme(axis.text.x = element_text(size=20, angle =45, hjust = 1))+
   theme(axis.text.y = element_text(size=15))+
   labs(title="50-year Return Level", y="Logarithmic RMSE", x= NULL)
-ggsave("~/STAT - Research/Extremes Project/Final Paper/BoxPlots/BoxPlot_SimGPD_Nonstationary_RL50.png", width = 4, height = 6)
+ggsave(paste0(plot.dir,"BoxPlot_SimGPD_Nonstationary_RL50.png"), width = 4, height = 6)
 
 ggplot(gpd_plot_data, aes(x=Model, y=RootRL100))+
   theme_classic()+
@@ -524,7 +533,7 @@ ggplot(gpd_plot_data, aes(x=Model, y=RootRL100))+
   theme(axis.text.x = element_text(size=20, angle =45, hjust = 1))+
   theme(axis.text.y = element_text(size=15))+
   labs(title="100-year Return Level", y="Logarithmic RMSE", x= NULL)
-ggsave("~/STAT - Research/Extremes Project/Final Paper/BoxPlots/BoxPlot_SimGPD_Nonstationary_RL100.png", width = 4, height = 6)
+ggsave(paste0(plot.dir,"BoxPlot_SimGPD_Nonstationary_RL100.png"), width = 4, height = 6)
 
 
 

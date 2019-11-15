@@ -44,16 +44,18 @@ iter.fail <- 1
 seed <- c(213, 333, 630, 820, 963, 1234, 2151, 2552, 2834, 3518, 5043, 7582, 9142, 28211, 60504, 71389, 92364, 92784, 100193, 640923)
 sim <- c(5, 10, 5, 15, 5, 15, 10, 15, 5, 15, 5, 5, 15, 5, 5, 15, 5, 15, 15, 15)
 
+dir <- "~/STAT - Research/Extremes Project/Final Paper/GEV_Final_Paper_Data/"
+
 ss <- 1
 for(i in 1:length(seed)){
   for(j in 1:(sim[i])){
 
-data <- read.csv(paste0("~/STAT - Research/Extremes Project/Cluster Results/GEV_Final_Paper_Data/Data_",seed[i],"_",j,".csv"))
-locations <- read.csv(paste0("~/STAT - Research/Extremes Project/Cluster Results/GEV_Final_Paper_Data/Locations_",seed[i],"_",j,".csv"))
-sim.loc <- read.csv(paste0("~/STAT - Research/Extremes Project/Cluster Results/GEV_Final_Paper_Data/Loc_",seed[i],".csv"))
-sim.scale <- read.csv(paste0("~/STAT - Research/Extremes Project/Cluster Results/GEV_Final_Paper_Data/Scale_",seed[i],".csv"))
-sim.shape <- read.csv(paste0("~/STAT - Research/Extremes Project/Cluster Results/GEV_Final_Paper_Data/Shape_",seed[i],".csv"))
-sim.results <- read.csv(paste0("~/STAT - Research/Extremes Project/Cluster Results/GEV_Final_Paper_Data/Results/GEV_",seed[i],".csv"))
+data <- read.csv(paste0(dir,"Data_",seed[i],"_",j,".csv"))
+locations <- read.csv(paste0(dir,"Locations_",seed[i],"_",j,".csv"))
+sim.loc <- read.csv(paste0(dir,"Loc_",seed[i],".csv"))
+sim.scale <- read.csv(paste0(dir,"Scale_",seed[i],".csv"))
+sim.shape <- read.csv(paste0(dir,"Shape_",seed[i],".csv"))
+sim.results <- read.csv(paste0(dir,"Results/GEV_",seed[i],".csv"))
 
 data <- data[,2:201]
 locations <- locations[,2:3]
